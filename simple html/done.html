@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Pago Confirmado!</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Estilos generales de tu referencia */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #ffeba7; /* Color de texto principal */
+            background-color: #1f2029; /* Color de fondo principal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centra el contenido verticalmente */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Añadido para que no se pegue al borde */
+            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #ffeba7; /* Color de los títulos */
+            text-align: center; /* Centra los títulos */
+            margin-bottom: 20px; /* Espaciado por defecto para títulos */
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #c4c3ca; /* Un color ligeramente diferente para párrafos para contraste */
+            text-align: center; /* Centra los párrafos */
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #f9e79b; /* Color de enlace de tu estilo */
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: aqua; /* Color de hover de tu estilo */
+            transform: scale(1.05); /* Ligeramente más grande en hover */
+        }
+
+        /* --- Contenedor principal de la página de confirmación --- */
+        .confirmation-card {
+            position: relative;
+            width: 90%;
+            max-width: 440px; /* Usando el ancho de tu .card-3d-wrap */
+            background-color: #2b2e38; /* Color de fondo de tus tarjetas */
+            border-radius: 6px;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2); /* Sombra consistente */
+            padding: 30px; /* Padding interno */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box; /* Asegura que el padding se incluya en el ancho/alto */
+        }
+
+        /* --- Icono de confirmación (reemplaza el loader) --- */
+        .confirmation-icon {
+            font-size: 4em; /* Tamaño grande para el icono de check */
+            color: #00ff00; /* Un verde vibrante para éxito */
+            margin: 20px 0; /* Espacio vertical */
+        }
+
+        /* --- Títulos y Párrafos dentro de la tarjeta --- */
+        .titulo-confirmado {
+            color: #ffeba7; /* Color de acento para el texto importante */
+            font-weight: 600; /* Más peso para el título principal */
+            font-size: 1.5em; /* Un poco más grande para el título */
+            margin-bottom: 15px; /* Espacio antes del mensaje */
+        }
+
+        .mensaje-confirmacion {
+            color: #c4c3ca; /* Color de texto más suave */
+            font-weight: 500;
+            font-size: 1em; /* Tamaño de fuente normal para el mensaje */
+            margin-bottom: 30px; /* Espacio antes del botón */
+        }
+
+        /* --- Botón (reutiliza tus estilos .btn) --- */
+        .main-button {
+            border-radius: 4px;
+            height: 44px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 200ms linear;
+            padding: 0 30px;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffeba7;
+            color: #000000;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+            /* Centrado extra en flexbox del padre */
+        }
+
+        .main-button:hover {
+            background-color: #000000;
+            color: #ffeba7;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-card">
+        <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i> </div>
+        <h2 class="titulo-confirmado">{{ mensaje }}</h2>
+        <button class="main-button" onclick="window.location.href='/'">Volver a la Página Principal</button>
+    </div>
+
+    </body>
+</html>

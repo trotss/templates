@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <style>
+        /* Estilos generales de tu referencia */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #ffeba7; /* Color de texto principal */
+            background-color: #1f2029; /* Color de fondo principal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Alinea al inicio para que el contenido suba */
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 20px; /* Padding superior e inferior para espacio */
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #ffeba7; /* Color de los títulos */
+            margin-bottom: 10px; /* Espaciado por defecto para títulos */
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #c4c3ca; /* Un color ligeramente diferente para párrafos para contraste */
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #f9e79b; /* Color de enlace de tu estilo */
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: aqua; /* Color de hover de tu estilo */
+            transform: scale(1.05); /* Ligeramente más grande en hover */
+        }
+
+        /* --- Contenedor principal del carrito --- */
+        .shopping-cart-container {
+            width: 90%;
+            max-width: 500px; /* Un poco más estrecho para el carrito */
+            background-color: #2b2e38; /* Color de fondo de las tarjetas */
+            border-radius: 6px;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+            padding: 0; /* No padding aquí, las secciones internas lo manejarán */
+            margin-bottom: 30px; /* Espacio entre el carrito y el pie de página si lo hubiera */
+            overflow: hidden; /* Para que los bordes redondeados se apliquen bien */
+        }
+
+        /* --- Estilo de las secciones (TOTAL, COUPON, WE ACCEPT, HELP) --- */
+        .cart-section-header {
+            background-color: #555555; /* Fondo gris de los encabezados de sección en tu imagen */
+            color: white; /* Texto blanco para los encabezados */
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cart-section-content {
+            padding: 20px;
+            /* background-color: #2b2e38; ya definido en el contenedor principal */
+        }
+
+        /* --- Sección TOTAL --- */
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        .total-item.net, .total-item.vat {
+            color: #c4c3ca; /* Texto más suave para net y VAT */
+        }
+        .total-item.final {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #ffeba7; /* Color de acento para el total final */
+            margin-top: 15px; /* Más espacio arriba */
+            padding-top: 10px; /* Pequeño padding para el borde */
+            border-top: 1px solid rgba(255, 235, 167, 0.1); /* Línea sutil de separación */
+        }
+
+        /* --- Sección COUPON --- */
+        .coupon-input {
+            padding: 13px 20px;
+            width: calc(100% - 40px); /* Ajuste por el padding */
+            font-weight: 500;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0.5px;
+            outline: none;
+            color: #c4c3ca;
+            background-color: #1f2029; /* Fondo oscuro como en tus inputs */
+            border: none;
+            box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+            margin-bottom: 10px; /* Espacio entre input y botón */
+            box-sizing: border-box; /* Para que padding no aumente el ancho total */
+        }
+
+        .coupon-input:focus,
+        .coupon-input:active {
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+        }
+
+        .coupon-button {
+            border-radius: 4px;
+            height: 44px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 200ms linear;
+            padding: 0 30px;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffeba7;
+            color: #000000;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+            width: 100%; /* Ocupa todo el ancho */
+            justify-content: center; /* Centra el texto */
+        }
+
+        .coupon-button:hover {
+            background-color: #000000;
+            color: #ffeba7;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+        }
+
+        /* --- Sección WE ACCEPT (Iconos de pago) --- */
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+            justify-content: center;
+            gap: 20px; /* Espacio entre los métodos */
+            align-items: center;
+        }
+
+        .payment-method-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #c4c3ca;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+            cursor: pointer; /* Indica que son clicables */
+        }
+        .payment-method-item:hover {
+            transform: translateY(-3px); /* Pequeño efecto de elevación */
+            color: #ffeba7;
+        }
+
+        .payment-method-icon {
+            font-size: 3em; /* Tamaño grande para los iconos de Font Awesome */
+            margin-bottom: 5px;
+            color: #ffeba7; /* Color de acento para los iconos */
+            transition: color 0.3s ease;
+        }
+        .payment-method-item:hover .payment-method-icon {
+            color: aqua; /* Color de hover para el icono */
+        }
+
+        .payment-method-icon img { /* Para el logo de PayPal que es una imagen */
+            max-width: 80px; /* Ancho máximo para la imagen de PayPal */
+            height: auto;
+            filter: brightness(0.9); /* Ligeramente más oscuro para tema oscuro */
+            transition: filter 0.3s ease;
+        }
+        .payment-method-item:hover .payment-method-icon img {
+            filter: brightness(1.2); /* Más brillante en hover */
+        }
+
+        /* --- Sección HELP AND CONTACT --- */
+        .contact-info {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .contact-info a {
+            font-weight: 600;
+        }
+        .contact-info p:last-child {
+            margin-bottom: 0; /* Eliminar margen inferior del último párrafo */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="shopping-cart-container">
+        <div class="cart-section-header">TOTAL</div>
+        <div class="cart-section-content">
+            <div class="total-item net">
+                <span>Shopping cart net</span>
+                <span>{{ precio }} €</span>
+            </div>
+            <div class="total-item vat">
+                <span>IVA</span>
+                <span>{{ iva }} %</span>
+            </div>
+            <div class="total-item final">
+                <span>Total (incl. IVA)</span>
+                <span>{{ total }} €</span>
+            </div>
+        </div>
+
+        <div class="cart-section-header">COUPON</div>
+        <div class="cart-section-content">
+            <input type="text" class="coupon-input" placeholder="voucher code">
+            <button class="coupon-button">Add</button>
+        </div>
+
+        <div class="cart-section-header">WE ACCEPT</div>
+        <div class="cart-section-content">
+            <div class="payment-methods">
+                <div class="payment-method-item">
+                    <span class="payment-method-icon"><i class="fab fa-stripe"></i></span>
+                    <span>Stripe</span>
+                </div>
+                <div class="payment-method-item">
+                    <span class="payment-method-icon">
+                        <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-mark-color.svg" alt="PayPal Logo">
+                    </span>
+                    <span>PayPal</span>
+                </div>
+                <div class="payment-method-item">
+                    <span class="payment-method-icon"><i class="fab fa-btc"></i></span>
+                    <span>Bitcoin</span>
+                </div>
+            </div>
+        </div>
+        <div class="cart-section-header">HELP AND CONTACT</div>
+        <div class="cart-section-content">
+            <div class="contact-info">
+                <p>Feel free to contact me if you need help.</p>
+                <p>Send us a message at: <a href="mailto:support@pixelio.es">support@pixelio.es</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

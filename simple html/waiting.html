@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesando Compra...</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+    <style>
+        /* Estilos generales de tu referencia */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #ffeba7; /* Color de texto principal */
+            background-color: #1f2029; /* Color de fondo principal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centra el contenido verticalmente */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Añadido para que no se pegue al borde */
+            box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #ffeba7; /* Color de los títulos */
+            text-align: center; /* Centra los títulos */
+            margin-bottom: 20px; /* Espaciado por defecto para títulos */
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #c4c3ca; /* Un color ligeramente diferente para párrafos para contraste */
+            text-align: center; /* Centra los párrafos */
+            margin-bottom: 10px;
+        }
+
+        /* --- Contenedor principal de la página de espera --- */
+        .waiting-card {
+            position: relative;
+            width: 90%;
+            max-width: 440px; /* Usando el ancho de tu .card-3d-wrap */
+            background-color: #2b2e38; /* Color de fondo de tus tarjetas */
+            border-radius: 6px;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2); /* Sombra consistente */
+            padding: 30px; /* Padding interno */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box; /* Asegura que el padding se incluya en el ancho/alto */
+        }
+
+        /* --- Loader / Spinner --- */
+        .loader {
+            border: 8px solid rgba(255, 235, 167, 0.2); /* Borde sutil del mismo color de acento, con transparencia */
+            border-top: 8px solid #ffeba7; /* Color de la parte superior con tu color de acento */
+            border-radius: 50%;
+            width: 60px; /* Tamaño más compacto para el spinner */
+            height: 60px;
+            animation: spin 1s linear infinite; /* Animación más rápida */
+            margin: 20px 0; /* Espacio vertical */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Títulos y Párrafos dentro de la tarjeta --- */
+        .titulo-procesando {
+            color: #ffeba7; /* Color de acento para el texto importante */
+            font-weight: 600; /* Más peso para el título principal */
+            font-size: 1.5em; /* Un poco más grande para el título */
+        }
+
+        .mensaje-procesando {
+            color: #c4c3ca; /* Color de texto más suave */
+            font-weight: 500;
+            font-size: 1em; /* Tamaño de fuente normal para el mensaje */
+        }
+
+        /* --- Ajuste del script --- */
+        /* La re-dirección automática debe ir después del HTML para asegurar que la página se renderice un poco */
+    </style>
+</head>
+<body>
+    <div class="waiting-card">
+        <h2 class="titulo-procesando">Su compra está siendo procesada</h2>
+        <div class="loader"></div>
+        <p class="mensaje-procesando">En unos instantes recibirá un mensaje</p>
+    </div>
+
+    <script>
+        // Si esta redirección es para una página de espera REAL,
+        // usualmente se haría después de una acción (ej. una subida exitosa).
+        // Si esta es la página A LA QUE se redirige para esperar,
+        // entonces el setTimeout simularía el tiempo de espera antes de otra redirección.
+        // Adapté el nombre de clase del p para ser más descriptivo.
+
+        // Simula un tiempo de espera antes de redirigir, para que el usuario vea el spinner.
+        // Ajusta el tiempo (en milisegundos) según lo necesites.
+        //setTimeout(() => {
+        //    window.location.href = "/waiting"; // O a la URL de confirmación, etc.
+        //}, 3000); // Redirige después de 3 segundos
+    </script>
+</body>
+</html>

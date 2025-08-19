@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - [Nombre de Usuario]</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Estilos generales de tu referencia */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #ffeba7; /* Color de texto principal */
+            background-color: #1f2029; /* Color de fondo principal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #ffeba7;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #c4c3ca;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #f9e79b;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: aqua;
+            transform: scale(1.05);
+        }
+
+        /* --- Contenedor Principal del Perfil --- */
+        .profile-page-container {
+            width: 90%;
+            max-width: 960px; /* Ancho similar al dashboard */
+            background-color: #2b2e38;
+            border-radius: 6px;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px; /* Espacio entre secciones del perfil */
+        }
+
+        /* --- Sección de Información del Perfil --- */
+        .profile-info-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            background-color: #1f2029;
+            border-radius: 6px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .profile-avatar-large {
+            width: 150px; /* Tamaño más grande para avatar de perfil */
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ffeba7; /* Borde más pronunciado */
+            margin-bottom: 20px;
+            background-color: #3d4049;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-avatar-large .fa-user-circle {
+            font-size: 6em; /* Icono más grande */
+            color: #c4c3ca;
+        }
+
+        .profile-username {
+            font-size: 2em; /* Nombre de usuario más grande */
+            font-weight: 700;
+            color: #ffeba7;
+            margin-bottom: 10px;
+        }
+
+        .profile-bio {
+            font-size: 1.1em;
+            color: #c4c3ca;
+            max-width: 600px;
+        }
+
+        /* --- Sección de Galería de Fotos en Venta --- */
+        .photos-for-sale-section {
+            width: 100%;
+            background-color: #1f2029;
+            border-radius: 6px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 3-4 columnas de fotos */
+            gap: 25px;
+            margin-top: 30px;
+            justify-items: center;
+        }
+
+        .photo-item {
+            background-color: #2b2e38;
+            border-radius: 8px;
+            overflow: hidden; /* Para que la imagen no se desborde */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px; /* Espacio para el contenido inferior */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .photo-thumbnail {
+            width: 100%;
+            height: 180px; /* Altura fija para miniaturas */
+            object-fit: cover; /* Recorta la imagen para cubrir el área */
+            cursor: pointer; /* Indica que es clicable */
+            display: block;
+            border-bottom: 1px solid rgba(255, 235, 167, 0.1); /* Separador sutil */
+        }
+
+        .photo-details {
+            padding: 15px;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .photo-name {
+            font-weight: 600;
+            color: #ffeba7;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .photo-price {
+            font-weight: 700;
+            color: aqua; /* Un color vibrante para el precio */
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        /* --- Botón Añadir a la Cesta (reutiliza el estilo .btn) --- */
+        .add-to-cart-btn {
+            border-radius: 4px;
+            height: 38px; /* Un poco más pequeño que los botones principales */
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 200ms linear;
+            padding: 0 20px;
+            letter-spacing: 0.8px;
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffeba7;
+            color: #000000;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(21,21,21,.15); /* Sombra más suave */
+            width: calc(100% - 30px); /* Ajustado para el padding del photo-details */
+            justify-content: center;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #000000;
+            color: #ffeba7;
+            box-shadow: 0 4px 12px rgba(16,39,112,.3);
+        }
+
+        /* --- Lightbox (Ampliar Foto) --- */
+        .lightbox {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo negro semitransparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            display: block;
+            margin: auto;
+            animation: zoomIn 0.3s ease; /* Animación de entrada */
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-lightbox:hover,
+        .close-lightbox:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animación para el lightbox */
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Mensaje de no fotos */
+        .no-photos-message {
+            color: #c4c3ca;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-page-container">
+        <div class="profile-info-section">
+            <div class="profile-avatar-large" id="profileAvatar">
+                </div>
+            <h2 class="profile-username" id="profileUsername"></h2>
+            <p class="profile-bio" id="profileBio"></p>
+        </div>
+
+        <div class="photos-for-sale-section">
+            <h2>Fotos en Venta</h2>
+            <div id="photosGrid" class="photos-grid">
+                <p class="no-photos-message">Cargando fotos...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+    </div>
+
+    <script>
+        // --- Datos de Perfil (Esto vendría de tu backend para un perfil específico) ---
+        const userProfileData = {
+            name: "Alice Wonderland",
+            photo: "https://randomuser.me/api/portraits/women/1.jpg", // Foto de perfil
+            bio: "Fotógrafa apasionada por los paisajes urbanos y la fotografía callejera. Me encanta capturar momentos únicos y la belleza en lo cotidiano.",
+            photosForSale: [
+                { id: 101, name: "Atardecer en la Ciudad", price: 29.99, imageUrl: "https://source.unsplash.com/random/800x600?citysunset", description: "Vista panorámica de la ciudad al atardecer." },
+                { id: 102, name: "Callejón Misterioso", price: 19.50, imageUrl: "https://source.unsplash.com/random/800x600?alley", description: "Un rincón oculto con encanto." },
+                { id: 103, name: "Luces Nocturnas", price: 35.00, imageUrl: "https://source.unsplash.com/random/800x600?citynightlights", description: "El bullicio de la ciudad iluminada." },
+                { id: 104, name: "Café Matutino", price: 12.75, imageUrl: "https://source.unsplash.com/random/800x600?coffeemorning", description: "Un momento de tranquilidad." },
+                { id: 105, name: "Retrato Urbano", price: 45.00, imageUrl: "https://source.unsplash.com/random/800x600?urbanportrait", description: "Caras y expresiones de la calle." },
+                { id: 106, name: "Arquitectura Futurista", price: 32.50, imageUrl: "https://source.unsplash.com/random/800x600?futuristicbuilding", description: "Líneas y formas en el horizonte." },
+                { id: 107, name: "Graffiti Art", price: 22.00, imageUrl: "https://source.unsplash.com/random/800x600?graffiti", description: "Expresión callejera en color." },
+                { id: 108, name: "Lluvia en la Ventana", price: 18.00, imageUrl: "https://source.unsplash.com/random/800x600?rainwindow", description: "Una vista melancólica." }
+            ]
+        };
+
+        // --- Elementos del DOM ---
+        const profileAvatar = document.getElementById('profileAvatar');
+        const profileUsername = document.getElementById('profileUsername');
+        const profileBio = document.getElementById('profileBio');
+        const photosGrid = document.getElementById('photosGrid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const closeLightbox = document.querySelector('.close-lightbox');
+
+        // --- Función para cargar la información del perfil ---
+        function loadUserProfile() {
+            // Cargar avatar
+            if (userProfileData.photo) {
+                const img = document.createElement('img');
+                img.src = userProfileData.photo;
+                img.alt = userProfileData.name;
+                profileAvatar.appendChild(img);
+            } else {
+                const icon = document.createElement('i');
+                icon.classList.add('fas', 'fa-user-circle');
+                profileAvatar.appendChild(icon);
+            }
+
+            // Cargar nombre y biografía
+            profileUsername.textContent = userProfileData.name;
+            profileBio.textContent = userProfileData.data || "Este usuario aún no ha añadido una biografía."; // Placeholder si no hay bio
+        }
+
+
+        // --- Función para crear una tarjeta de foto ---
+        function createPhotoItem(photo) {
+            const item = document.createElement('div');
+            item.classList.add('photo-item');
+
+            const img = document.createElement('img');
+            img.src = photo.imageUrl;
+            img.alt = photo.name;
+            img.classList.add('photo-thumbnail');
+            img.dataset.fullSrc = photo.imageUrl; // Guardar la URL completa para el lightbox
+            img.addEventListener('click', () => openLightbox(photo.imageUrl));
+            item.appendChild(img);
+
+            const details = document.createElement('div');
+            details.classList.add('photo-details');
+
+            const name = document.createElement('h4');
+            name.classList.add('photo-name');
+            name.textContent = photo.name;
+            details.appendChild(name);
+
+            const price = document.createElement('p');
+            price.classList.add('photo-price');
+            price.textContent = `${photo.price.toFixed(2)} €`; // Formatear precio a 2 decimales
+            details.appendChild(price);
+
+            const addToCartBtn = document.createElement('button');
+            addToCartBtn.classList.add('add-to-cart-btn');
+            addToCartBtn.textContent = 'Añadir a la Cesta';
+            addToCartBtn.dataset.photoId = photo.id; // Para identificar qué foto se añade
+            addToCartBtn.addEventListener('click', () => addToCart(photo));
+            details.appendChild(addToCartBtn);
+
+            item.appendChild(details);
+            return item;
+        }
+
+        // --- Función para cargar las fotos en venta ---
+        function loadPhotosForSale() {
+            photosGrid.innerHTML = ''; // Limpiar mensaje de carga
+
+            if (userProfileData.photosForSale && userProfileData.photosForSale.length > 0) {
+                userProfileData.photosForSale.forEach(photo => {
+                    photosGrid.appendChild(createPhotoItem(photo));
+                });
+                photosGrid.style.display = 'grid'; // Asegura que la cuadrícula se muestre
+            } else {
+                photosGrid.innerHTML = '<p class="no-photos-message">Este usuario no tiene fotos en venta.</p>';
+                photosGrid.style.display = 'block'; // Asegura que el mensaje se muestre
+            }
+        }
+
+        // --- Funcionalidad del Lightbox ---
+        function openLightbox(imageUrl) {
+            lightboxImage.src = imageUrl;
+            lightbox.style.display = 'flex'; // Usar flex para centrado
+        }
+
+        closeLightbox.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+
+        // Cerrar lightbox haciendo clic fuera de la imagen
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        // Cerrar lightbox con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                lightbox.style.display = 'none';
+            }
+        });
+
+        // --- Simulación de Añadir a la Cesta ---
+        function addToCart(photo) {
+            console.log(`Foto "${photo.name}" (ID: ${photo.id}) añadida a la cesta. Precio: ${photo.price} €`);
+            // Aquí integrarías la lógica real para añadir al carrito:
+            // 1. Enviar una petición a tu backend para añadir el producto al carrito del usuario.
+            // 2. Actualizar un contador de carrito en el frontend.
+            // 3. Mostrar una notificación al usuario (ej. un "toast" o un mensaje temporal).
+            alert(`"${photo.name}" ha sido añadido a tu cesta por ${photo.price.toFixed(2)}€`);
+        }
+
+        // --- Cargar todo al iniciar ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserProfile();
+            loadPhotosForSale();
+        });
+    </script>
+</body>
+</html>

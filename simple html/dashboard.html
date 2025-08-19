@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Estilos generales de tu referencia */
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: #ffeba7; /* Color de texto principal */
+            background-color: #1f2029; /* Color de fondo principal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Alinea al inicio para dejar espacio arriba */
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px; /* Más padding arriba y abajo */
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: #ffeba7; /* Color de los títulos */
+            text-align: center;
+            margin-bottom: 25px; /* Espaciado por defecto para títulos */
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+            color: #c4c3ca; /* Un color ligeramente diferente para párrafos para contraste */
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #f9e79b; /* Color de enlace de tu estilo */
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            color: aqua; /* Color de hover de tu estilo */
+            transform: scale(1.05);
+        }
+
+        /* --- Contenedor principal del Dashboard --- */
+        .dashboard-container {
+            width: 90%;
+            max-width: 960px; /* Un ancho más amplio para el dashboard */
+            background-color: #2b2e38; /* Color de fondo de las tarjetas */
+            border-radius: 6px;
+            box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Espacio entre secciones */
+        }
+
+        /* --- Sección de Búsqueda --- */
+        .search-section {
+            background-color: #1f2029; /* Fondo oscuro para la sección de búsqueda */
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .search-input-group {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Ancho máximo para el input de búsqueda */
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            padding: 13px 20px;
+            padding-left: 55px; /* Espacio para el icono */
+            height: 48px;
+            width: calc(100% - 75px); /* Ajuste para padding y icono */
+            font-weight: 500;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0.5px;
+            outline: none;
+            color: #c4c3ca;
+            background-color: #1f2029; /* Fondo oscuro como en tus inputs */
+            border: none;
+            box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+            transition: all 200ms linear;
+        }
+
+        .search-input:focus,
+        .search-input:active {
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 12px 0 rgba(21,21,21,.3);
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 0;
+            left: 18px;
+            height: 48px;
+            font-size: 24px;
+            line-height: 48px;
+            text-align: left;
+            color: #ffeba7; /* Color de acento para el icono */
+        }
+
+        .search-results {
+            width: 100%;
+            max-height: 400px; /* Altura máxima para los resultados de búsqueda */
+            overflow-y: auto; /* Scroll si hay muchos resultados */
+            padding: 10px;
+            background-color: #2b2e38; /* Fondo de resultados */
+            border-radius: 6px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .search-results.hidden {
+            display: none; /* Oculta los resultados si no hay búsqueda activa */
+        }
+        .search-results p {
+            color: #c4c3ca;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* --- Secciones de Perfiles Destacados --- */
+        .featured-profiles-section {
+            background-color: #1f2029; /* Fondo oscuro para la sección */
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* 3 o 4 columnas responsivas */
+            gap: 25px; /* Espacio entre perfiles */
+            width: 100%;
+            justify-items: center; /* Centra los perfiles en las celdas de la cuadrícula */
+        }
+
+        /* --- Estilo de cada Perfil (destacado o de búsqueda) --- */
+        .profile-card {
+            background-color: #2b2e38; /* Fondo de la tarjeta de perfil */
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px); /* Efecto de elevación en hover */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .profile-photo-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffeba7; /* Borde con tu color de acento */
+            margin-bottom: 15px;
+            background-color: #3d4049; /* Color de fondo para placeholder si no hay imagen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que la imagen cubra el contenedor */
+            display: block;
+        }
+        .profile-photo-container .fa-user-circle { /* Estilo para el icono de placeholder */
+            font-size: 4em;
+            color: #c4c3ca;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #ffeba7;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .profile-description {
+            font-size: 0.9em;
+            color: #c4c3ca;
+            max-width: 160px; /* Limita el ancho del texto para mejor legibilidad */
+        }
+
+        /* Estilo para los mensajes cuando no hay resultados */
+        .no-results-message {
+            color: #c4c3ca;
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+
+        <div class="search-section">
+            <h2>Buscar Perfiles</h2>
+            <div class="search-input-group">
+                <i class="fas fa-search input-icon"></i>
+                <input type="text" id="profileSearchInput" class="search-input" placeholder="Buscar por nombre...">
+            </div>
+            <div id="searchResults" class="search-results hidden">
+                <p>Empieza a escribir para buscar perfiles...</p>
+            </div>
+        </div>
+
+        <div class="featured-profiles-section">
+            <h2>Perfiles Destacados</h2>
+            <div id="featuredProfilesGrid" class="profiles-grid">
+                <p class="no-results-message">Cargando perfiles destacados...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Datos de ejemplo para perfiles (esto vendría de tu backend) ---
+        const allProfiles = [
+            { id: 1, name: "Alice Wonderland", photo: "https://randomuser.me/api/portraits/women/1.jpg" },
+            { id: 2, name: "Bob The Builder", photo: "https://randomuser.me/api/portraits/men/2.jpg" },
+            { id: 3, name: "Charlie Chaplin", photo: "https://randomuser.me/api/portraits/men/3.jpg" },
+            { id: 4, name: "Diana Prince", photo: "https://randomuser.me/api/portraits/women/4.jpg" },
+            { id: 5, name: "Eve Harrington", photo: "https://randomuser.me/api/portraits/women/5.jpg" },
+            { id: 6, name: "Frank Sinatra", photo: "https://randomuser.me/api/portraits/men/6.jpg" },
+            { id: 7, name: "Grace Kelly", photo: "https://randomuser.me/api/portraits/women/7.jpg" },
+            { id: 8, name: "Harry Potter", photo: "https://randomuser.me/api/portraits/men/8.jpg" },
+            { id: 9, name: "Ivy Green", photo: "https://randomuser.me/api/portraits/women/9.jpg" },
+            { id: 10, name: "Jack Sparrow", photo: "https://randomuser.me/api/portraits/men/10.jpg" }
+        ];
+
+        // Función para crear un elemento de tarjeta de perfil
+        function createProfileCard(profile) {
+            const card = document.createElement('div');
+            card.classList.add('profile-card');
+
+            const photoContainer = document.createElement('div');
+            photoContainer.classList.add('profile-photo-container');
+
+            if (profile.photo) {
+                const img = document.createElement('img');
+                img.src = profile.photo;
+                img.alt = profile.name;
+                img.classList.add('profile-photo');
+                photoContainer.appendChild(img);
+            } else {
+                // Placeholder con icono de Font Awesome si no hay foto
+                const icon = document.createElement('i');
+                icon.classList.add('fas', 'fa-user-circle');
+                photoContainer.appendChild(icon);
+            }
+
+            const name = document.createElement('h3');
+            name.classList.add('profile-name');
+            name.textContent = profile.name;
+
+            // Opcional: si quieres añadir una descripción corta a los perfiles
+            // const description = document.createElement('p');
+            // description.classList.add('profile-description');
+            // description.textContent = "Usuario activo";
+            // card.appendChild(description);
+
+            card.appendChild(photoContainer);
+            card.appendChild(name);
+            return card;
+        }
+
+        // --- Perfiles Destacados (Generación al cargar) ---
+        const featuredProfilesGrid = document.getElementById('featuredProfilesGrid');
+        function loadFeaturedProfiles() {
+            // Seleccionar 3 o 4 perfiles aleatorios o específicos
+            const featuredCount = 4; // Puedes cambiar a 3 si lo prefieres
+            const featured = [];
+            const shuffledProfiles = [...allProfiles].sort(() => 0.5 - Math.random()); // Mezclar para obtener aleatorios
+
+            for (let i = 0; i < featuredCount && i < shuffledProfiles.length; i++) {
+                featured.push(shuffledProfiles[i]);
+            }
+
+            featuredProfilesGrid.innerHTML = ''; // Limpiar mensaje de carga
+            if (featured.length === 0) {
+                featuredProfilesGrid.innerHTML = '<p class="no-results-message">No hay perfiles destacados disponibles.</p>';
+                featuredProfilesGrid.style.display = 'block'; // Asegura que el mensaje se muestre
+            } else {
+                featured.forEach(profile => {
+                    featuredProfilesGrid.appendChild(createProfileCard(profile));
+                });
+                featuredProfilesGrid.style.display = 'grid'; // Asegura que la cuadrícula se muestre
+            }
+        }
+
+        // --- Buscador de Perfiles ---
+        const profileSearchInput = document.getElementById('profileSearchInput');
+        const searchResultsDiv = document.getElementById('searchResults');
+
+        profileSearchInput.addEventListener('input', () => {
+            const searchTerm = profileSearchInput.value.toLowerCase().trim();
+            searchResultsDiv.innerHTML = ''; // Limpiar resultados anteriores
+
+            if (searchTerm.length === 0) {
+                searchResultsDiv.classList.add('hidden'); // Ocultar si el input está vacío
+                searchResultsDiv.innerHTML = '<p>Empieza a escribir para buscar perfiles...</p>';
+                return;
+            }
+
+            searchResultsDiv.classList.remove('hidden'); // Mostrar resultados
+
+            const filteredProfiles = allProfiles.filter(profile =>
+                profile.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredProfiles.length === 0) {
+                searchResultsDiv.innerHTML = '<p class="no-results-message">No se encontraron perfiles con ese nombre.</p>';
+            } else {
+                filteredProfiles.forEach(profile => {
+                    searchResultsDiv.appendChild(createProfileCard(profile));
+                });
+            }
+        });
+
+        // Cargar perfiles destacados al cargar la página
+        document.addEventListener('DOMContentLoaded', loadFeaturedProfiles);
+    </script>
+</body>
+</html>
